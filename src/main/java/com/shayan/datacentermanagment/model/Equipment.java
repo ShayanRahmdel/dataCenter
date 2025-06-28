@@ -12,7 +12,7 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import java.util.List;
 
-@Entity(name = "equipment")
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter

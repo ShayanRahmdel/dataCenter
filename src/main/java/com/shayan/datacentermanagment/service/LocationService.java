@@ -15,5 +15,7 @@ public interface LocationService {
 
     void delete(Long id);
 
-    List<Location> createLocation();
+    void createLocation();
+
+
 }

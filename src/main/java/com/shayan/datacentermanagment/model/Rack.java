@@ -8,7 +8,7 @@ import lombok.Setter;
 
 import java.util.List;
 
-@Entity(name = "rack")
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter

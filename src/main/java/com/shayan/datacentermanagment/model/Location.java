@@ -7,7 +7,7 @@ import lombok.*;
 
 import java.util.List;
 
-@Entity(name = "location")
+@Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Setter
@@ -20,6 +20,12 @@ public class Location {
     private Long id;
 
     private String name;
+
+    public Location(String name, LocationType locationType,List<Location> parent,List<Location> children ) {
+        this.children = children;
+        this.locationType = locationType;
+        this.name = name;
+    }
 
     @Enumerated(EnumType.STRING)
     @Column(name = "location_type")
