@@ -40,4 +40,5 @@ public class RackServiceImpl implements RackService {
         validationUtil.validateExists(rackRepository,id,"Rack");
         rackRepository.deleteById(id);
     }
+
 }

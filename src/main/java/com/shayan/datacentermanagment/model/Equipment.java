@@ -2,10 +2,7 @@ package com.shayan.datacentermanagment.model;
 
 import com.shayan.datacentermanagment.model.enumration.EquipmentType;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Max;
@@ -17,6 +14,8 @@ import java.util.List;
 @NoArgsConstructor
 @Setter
 @Getter
+@Builder
+@EqualsAndHashCode
 public class Equipment {
 
     @Id

@@ -43,32 +43,6 @@ public class LocationServiceImpl implements LocationService {
         locationRepository.deleteById(id);
     }
 
-    @Override
-    public void createLocation() {
-        Location iranLocation = locationRepository.findIranLocation();
-        if (iranLocation != null) {
-            log.info("Initial locations already exist.");
-            return;
-        }
 
-        Location iran = Location.builder().name("ایران").locationType(LocationType.COUNTRY).build();
-
-        Location tehran = Location.builder().name("تهران").locationType(LocationType.CITY).parent(iran).build();
-        Location esfahan = Location.builder().name("اصفهان").locationType(LocationType.CITY).parent(iran).build();
-        Location fars = Location.builder().name("فارس").locationType(LocationType.CITY).parent(iran).build();
-        Location khorasan = Location.builder().name("خراسان رضوی").locationType(LocationType.CITY).parent(iran).build();
-        Location azarbayjanSharghi = Location.builder().name("آذربایجان شرقی").locationType(LocationType.CITY).parent(iran).build();
-        iran.setChildren(List.of(tehran,esfahan,fars,khorasan,azarbayjanSharghi));
-        locationRepository.saveAll(List.of(
-                iran, tehran, esfahan, fars, khorasan, azarbayjanSharghi
-        ));
-
-        log.info("Initial location data created successfully.");
-    }
-
-    @PostConstruct
-    public void init() {
-        createLocation();
-    }
 
 }

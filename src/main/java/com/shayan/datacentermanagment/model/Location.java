@@ -13,6 +13,7 @@ import java.util.List;
 @Setter
 @Getter
 @Builder
+@EqualsAndHashCode
 public class Location {
 
     @Id

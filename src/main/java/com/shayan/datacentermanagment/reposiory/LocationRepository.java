@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.Query;
 
 public interface LocationRepository extends JpaRepository<Location,Long> {
 
-    @Query("select l from Location l where l.name = 'iran' ")
+    @Query("select l from Location l where l.name = 'ایران' ")
     Location findIranLocation();
 }

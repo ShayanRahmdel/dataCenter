@@ -2,8 +2,7 @@ package com.shayan.datacentermanagment.service;
 
 import com.shayan.datacentermanagment.model.Location;
 
-import java.util.List;
-import java.util.Optional;
+
 
 public interface LocationService {
 
@@ -14,8 +13,4 @@ public interface LocationService {
     Location update(Location location);
 
     void delete(Long id);
-
-    void createLocation();
-
-
 }
