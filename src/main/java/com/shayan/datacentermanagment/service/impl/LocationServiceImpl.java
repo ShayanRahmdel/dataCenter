@@ -1,5 +1,6 @@
 package com.shayan.datacentermanagment.service.impl;
 
+import com.shayan.datacentermanagment.aspect.LogActivity;
 import com.shayan.datacentermanagment.exception.NotFoundException;
 import com.shayan.datacentermanagment.model.Location;
 import com.shayan.datacentermanagment.model.enumration.LocationType;
@@ -22,6 +23,7 @@ public class LocationServiceImpl implements LocationService {
     private final ValidationUtil validationUtil;
 
 
+    @LogActivity("adding new Location")
     @Override
     public Location save(Location location) {
         return locationRepository.save(location);
@@ -32,11 +34,13 @@ public class LocationServiceImpl implements LocationService {
         return locationRepository.findById(id).orElseThrow(() -> new NotFoundException("not found Location"));
     }
 
+    @LogActivity("update Location")
     @Override
     public Location update(Location location) {
         return null;
     }
 
+    @LogActivity("delete Location")
     @Override
     public void delete(Long id) {
         validationUtil.validateExists(locationRepository, id, "Location");

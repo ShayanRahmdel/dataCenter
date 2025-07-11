@@ -3,12 +3,14 @@ package com.shayan.datacentermanagment.service.impl;
 import com.shayan.datacentermanagment.model.*;
 import com.shayan.datacentermanagment.model.enumration.EquipmentType;
 import com.shayan.datacentermanagment.model.enumration.LocationType;
+import com.shayan.datacentermanagment.model.enumration.Role;
 import com.shayan.datacentermanagment.reposiory.*;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.IntStream;
@@ -24,6 +26,7 @@ public class DataInitializerService {
     private final RackRowRepository rackRowRepository;
     private final RackRepository rackRepository;
     private final EquipmentRepository equipmentRepository;
+    private final UserRepository userRepository;
 
     @PostConstruct
     public void initialize() {
@@ -36,8 +39,14 @@ public class DataInitializerService {
 
         Location iran = createLocations();
         createDataCenters(iran);
+        if (userRepository.findAll().isEmpty()){
+            createUsers();
+            log.info("Admin and supports added");
+        }
 
         log.info("✅ Infrastructure initialized successfully.");
+
+
     }
 
     private Location createLocations() {
@@ -143,7 +152,41 @@ public class DataInitializerService {
                 .toList();
 
         equipment.setPorts(ports);
+
+        // 💰 تعیین قیمت
+        equipment.setPrice(calculatePrice(type, unitSize, portCount));
+
         return equipment;
+    }
+
+    private BigDecimal calculatePrice(EquipmentType type, int unitSize, int portCount) {
+        BigDecimal base;
+        BigDecimal unitPrice = BigDecimal.valueOf(150_000);
+        BigDecimal portPrice = BigDecimal.valueOf(50_000);
+
+        switch (type) {
+            case SERVER -> base = BigDecimal.valueOf(500_000);
+            case SWITCH -> base = BigDecimal.valueOf(400_000);
+            case PATCH_PANEL -> base = BigDecimal.valueOf(300_000);
+            default -> base = BigDecimal.ZERO;
+        }
+
+        return base
+                .add(unitPrice.multiply(BigDecimal.valueOf(unitSize)))
+                .add(portPrice.multiply(BigDecimal.valueOf(portCount)));
+
+    }
+
+    private void createUsers(){
+        User admin = User.builder().username("admin").password("admin").role(Role.ROLE_ADMIN).rentedServices(null).build();
+        User supporterOne = User.builder().username("sup1").password("sup1").role(Role.ROLE_SUPPORT).rentedServices(null).build();
+        User supporterTwo = User.builder().username("sup2").password("sup2").role(Role.ROLE_SUPPORT).rentedServices(null).build();
+        User supporterThree = User.builder().username("sup3").password("sup3").role(Role.ROLE_SUPPORT).rentedServices(null).build();
+        User supporterFour = User.builder().username("sup4").password("sup4").role(Role.ROLE_SUPPORT).rentedServices(null).build();
+        User supporterFive = User.builder().username("sup5").password("sup5").role(Role.ROLE_SUPPORT).rentedServices(null).build();
+
+         userRepository.saveAll(List.of(admin,supporterOne,supporterTwo,supporterThree,supporterFour,supporterFive));
+
     }
 
 }

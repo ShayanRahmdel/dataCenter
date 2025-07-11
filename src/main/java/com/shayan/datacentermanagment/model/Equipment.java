@@ -7,6 +7,7 @@ import lombok.*;
 import javax.validation.constraints.AssertTrue;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -31,6 +32,9 @@ public class Equipment {
     @Max(4)
     @Column(name = "unit_size")
     private Integer unitSize;
+
+
+    private BigDecimal price;
 
     @AssertTrue(message = "unitSize must be 1 , 2 or  4")
     public Boolean isValidUnitSize(){

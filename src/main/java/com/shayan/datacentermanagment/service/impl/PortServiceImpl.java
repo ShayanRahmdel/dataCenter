@@ -1,5 +1,6 @@
 package com.shayan.datacentermanagment.service.impl;
 
+import com.shayan.datacentermanagment.aspect.LogActivity;
 import com.shayan.datacentermanagment.exception.NotFoundException;
 import com.shayan.datacentermanagment.model.Port;
 import com.shayan.datacentermanagment.reposiory.PortRepository;
@@ -20,6 +21,7 @@ public class PortServiceImpl implements PortService {
     private final ValidationUtil validationUtil;
 
     @Override
+    @LogActivity("adding Port")
     public Port save(Port port) {
         return portRepository.save(port);
     }
@@ -29,11 +31,13 @@ public class PortServiceImpl implements PortService {
         return portRepository.findById(id).orElseThrow(()-> new NotFoundException("not found Port"));
     }
 
+    @LogActivity("update Port")
     @Override
     public Port update(Port port) {
         return null;
     }
 
+    @LogActivity("delete Port")
     @Override
     public void delete(Long id) {
         validationUtil.validateExists(portRepository, id, "Port");

@@ -1,5 +1,6 @@
 package com.shayan.datacentermanagment.service.impl;
 
+import com.shayan.datacentermanagment.aspect.LogActivity;
 import com.shayan.datacentermanagment.exception.NotFoundException;
 import com.shayan.datacentermanagment.model.Rack;
 import com.shayan.datacentermanagment.model.RackRow;
@@ -21,6 +22,7 @@ public class RackServiceImpl implements RackService {
 
 
     @Override
+    @LogActivity("adding new Rack")
     public Rack save(Rack rack) {
         return rackRepository.save(rack);
     }
@@ -31,10 +33,12 @@ public class RackServiceImpl implements RackService {
     }
 
     @Override
+    @LogActivity("update Rack")
     public Rack update(Rack rack) {
         return null;
     }
 
+    @LogActivity("delete Rack")
     @Override
     public void delete(Long id) {
         validationUtil.validateExists(rackRepository,id,"Rack");

@@ -1,5 +1,6 @@
 package com.shayan.datacentermanagment.service.impl;
 
+import com.shayan.datacentermanagment.aspect.LogActivity;
 import com.shayan.datacentermanagment.exception.NotFoundException;
 import com.shayan.datacentermanagment.model.RackRow;
 import com.shayan.datacentermanagment.reposiory.RackRowRepository;
@@ -20,6 +21,7 @@ public class RackRowServiceImpl implements RackRowService {
     private final RackRowRepository rackRowRepository;
     private final ValidationUtil validationUtil;
 
+    @LogActivity("adding new RackRow")
     @Override
     public RackRow save(RackRow rackRow) {
         return rackRowRepository.save(rackRow);
@@ -29,12 +31,13 @@ public class RackRowServiceImpl implements RackRowService {
     public RackRow load(Long id) {
         return rackRowRepository.findById(id).orElseThrow(()-> new NotFoundException("not found RackRow"));
     }
-
+    @LogActivity("update RackRow")
     @Override
     public RackRow update(RackRow rackRow) {
         return null;
     }
 
+    @LogActivity("update RackRow")
     @Override
     public void delete(Long id) {
         validationUtil.validateExists(rackRowRepository,id,"RackRow");

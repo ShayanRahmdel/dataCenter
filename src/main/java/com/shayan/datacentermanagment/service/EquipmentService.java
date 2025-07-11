@@ -2,8 +2,9 @@ package com.shayan.datacentermanagment.service;
 
 
 import com.shayan.datacentermanagment.model.Equipment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 
-import java.util.Optional;
 
 public interface EquipmentService {
 
@@ -14,4 +15,7 @@ public interface EquipmentService {
     Equipment update(Equipment equipment);
 
     void delete(Long id);
+
+    Page<Equipment> findAllServer(Pageable pageable);
+
 }
